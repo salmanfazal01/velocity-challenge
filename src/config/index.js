@@ -1,0 +1,3 @@
+export const MAXDAILYTRANSACTIONS = 3;
+export const MAXDAILYLIMIT = 5000;
+export const MAXWEEKLYLIMIT = 20000;
