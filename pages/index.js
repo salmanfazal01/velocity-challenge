@@ -111,6 +111,8 @@ const Home = () => {
       <Grid container spacing={5}>
         {/* Left Input Table */}
         <Grid item xs={12} md={6}>
+          <Typography variant="h6">Output</Typography>
+
           <TableContainer
             component={Paper}
             sx={{ maxHeight: "70vh", overflow: "auto" }}
@@ -146,6 +148,8 @@ const Home = () => {
 
         {/* Right Output Table */}
         <Grid item xs={12} md={6}>
+          <Typography variant="h6">Output</Typography>
+
           <TableContainer
             component={Paper}
             sx={{ maxHeight: "70vh", overflow: "auto" }}
