@@ -2,6 +2,8 @@ import Customer from "./Customer";
 import moment from "moment";
 import { MAXDAILYLIMIT, MAXDAILYTRANSACTIONS, MAXWEEKLYLIMIT } from "../config";
 
+// REFER TO YOUTUBE VIDEO WHERE I EXPLAIN EACH OF THESE IN DETAILS
+
 // Function to clean the uploaded data
 export const cleanData = (file, callback) => {
   const reader = new FileReader();

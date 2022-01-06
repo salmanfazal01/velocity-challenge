@@ -10,6 +10,7 @@ class Customer {
     this.latestTransactionDate = moment.utc("1990-01-01");
   }
 
+  // Update/add a transaction
   updateTransaction(transactionAmount, transactionDate) {
     this.updateNewDay(transactionDate);
 
@@ -26,17 +27,20 @@ class Customer {
     return false;
   }
 
+  // Update daily transactions amount and counter
   updateDailyTransactions(transactionAmount, transactionDate) {
     this.dailyTransactionsAmount += transactionAmount;
     this.dailyTransactionsCount += 1;
     this.latestTransactionDate = moment.utc(transactionDate);
   }
 
+  // Update weekly transactions amount
   updateWeeklyTransactions(transactionAmount, transactionDate) {
     this.weeklyTransactionsAmount += transactionAmount;
     this.latestTransactionDate = moment.utc(transactionDate);
   }
 
+  // Check and update if new day
   updateNewDay(transactionDate) {
     const date = moment.utc(transactionDate);
 
@@ -50,6 +54,7 @@ class Customer {
     }
   }
 
+  // Check if daily limit reached
   reachedDailyLimit(transactionAmount) {
     if (
       transactionAmount > MAXDAILYLIMIT ||
@@ -63,6 +68,7 @@ class Customer {
     return false;
   }
 
+  // Check if weekly limit reached
   reachedWeeklyLimit(transactionAmount) {
     if (
       transactionAmount > MAXWEEKLYLIMIT ||

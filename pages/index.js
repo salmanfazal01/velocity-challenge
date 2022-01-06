@@ -27,24 +27,29 @@ const Home = () => {
   const [sortedResults, setSortedResults] = useState(null);
   const [sortParams, setSortParams] = useState(null);
 
+  // Total accepted and rejected results
   const totalAccepted = results?.reduce((total, { accepted }) => {
     if (accepted) return total + 1;
     return total;
   }, 0);
   const totalRejected = results?.length - totalAccepted;
 
+  // Handle uploaded file
   const handleUpload = (e) => {
     e.preventDefault();
     setFile(e.target.files[0]);
     e.target.value = null;
   };
 
+  // Clean data once file is uploaded
   useEffect(() => {
     if (file) {
       cleanData(file, setData);
     }
   }, [file]);
 
+  // Run transactions after data is cleaned
+  // Try both algorithms from functions file.
   useEffect(() => {
     if (data) {
       const output = runTransactions(data);
@@ -53,6 +58,7 @@ const Home = () => {
     }
   }, [data]);
 
+  // Sort column data
   useMemo(() => {
     if (sortParams) {
       const _sorted = sortData(results, sortParams);
@@ -61,6 +67,7 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortParams]);
 
+  // Handle sort button click
   const handleSortClicked = (column, type) => {
     // [column, order, type]
     if (sortParams?.[0] === column) {
@@ -108,6 +115,7 @@ const Home = () => {
 
       <Divider sx={{ my: 2 }} />
 
+      {/* Tables */}
       <Grid container spacing={5}>
         {/* Left Input Table */}
         <Grid item xs={12} md={6}>
