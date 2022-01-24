@@ -1,34 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Challenge
 
-## Getting Started
 
-First, run the development server:
+In finance, it's common for accounts to have so-called "velocity limits". In this task, you'll create a web application that accepts or declines attempts to load funds into customers' accounts in real-time.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In this application, you should provide a web page including:
+- An interface to upload the input file for processing.
+- A data table to display the results after processing. User should be able to sort data in each column.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Each attempt to load funds will come as a single-line JSON payload, structured as follows:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+{
+  "id": "1234",
+  "customer_id": "1234",
+  "load_amount": "$123.45",
+  "time": "2018-01-01T00:00:00Z"
+}
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Each customer is subject to three limits:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+A maximum of $5,000 can be loaded per day
+A maximum of $20,000 can be loaded per week
+A maximum of 3 loads can be performed per day, regardless of amount
+As such, a user attempting to load $3,000 twice in one day would be declined on the second attempt, as would a user attempting to load $400 four times in a day.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For each load attempt, you should return a JSON response indicating whether the fund load was accepted based on the user's activity, with the structure:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+{ "id": "1234", "customer_id": "1234", "accepted": true }
+
+
+You can assume that the input arrives in ascending chronological order and that if a load ID is observed more than once for a particular user, all but the first instance can be ignored. Each day is considered to end at midnight UTC, and weeks start on Monday (i.e. one second after 23:59:59 on Sunday).
+
+
+Your program should process lines from input.txt and display all the responses in the format specified above to a data table. The expected output given our input data can be found in output.txt.
